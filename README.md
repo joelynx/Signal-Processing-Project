@@ -2,15 +2,15 @@
 
 Decomposing the timbre of plucked-string instruments into a sum of decaying harmonics, then validating the model by re-synthesizing the recording from its fitted parameters.
 
-Originally a lab project for AELP101 at IIT-Delhi Abu Dhabi (Sem 2, 2024–25). The full write-up — derivations, tables, and reconstruction audio links — lives in [`Report.pdf`](Report.pdf).
+Originally a first year lab project for AELP101 at IIT-Delhi Abu Dhabi (Sem 2, 2024–25). The full write-up (derivations, tables, and reconstruction audio links), lives in [`Report.pdf`](Report.pdf).
 
 ## What it does
 
 Two instruments playing the same fundamental frequency don't sound the same. The difference is *timbre*: the relative strength and decay rate of the overtones above the fundamental. This project quantifies timbre for a recorded note in three steps:
 
-1. **Analyze** — slide a Hann-windowed FFT across the recording, and for each window extract the 18 strongest spectral peaks. This gives a time series of amplitude vs. time for each harmonic as the note decays.
-2. **Fit** — for each harmonic, fit an exponential decay `A·exp(-k·t)` to its amplitude time series.
-3. **Synthesize** — sum decaying sinusoids using the fitted `(A, k, f)` per harmonic, write to .wav, listen. If the model captures the physics, the reconstruction sounds like the original instrument.
+1. **Analyze** : slide a Hann-windowed FFT across the recording, and for each window extract the 18 strongest spectral peaks. This gives a time series of amplitude vs. time for each harmonic as the note decays.
+2. **Fit** : for each harmonic, fit an exponential decay `A·exp(-k·t)` to its amplitude time series.
+3. **Synthesize** : sum decaying sinusoids using the fitted `(A, k, f)` per harmonic, write to .wav, listen. If the model captures the physics, the reconstruction sounds like the original instrument.
 
 Tested on a nylon-string guitar (B3) and a piano (B4); reconstructions are recognizable as the source instrument. See the report for full numerical results.
 
@@ -28,7 +28,7 @@ The full signal is the sum over `i = 1..18`. The free parameters `(A_i, k_i)` ar
 
 ### Windowed FFT
 
-A plain FFT on the whole recording would tell us which frequencies are present, but not how their amplitudes evolve — the signal isn't stationary. The fix:
+A plain FFT on the whole recording would tell us which frequencies are present, but not how their amplitudes evolve as the signal isn't stationary. The fix:
 
 - Chop the signal into short windows where amplitude is approximately constant.
 - Multiply each window by a Hann taper (suppresses spectral leakage from the discontinuities at the window edges).
