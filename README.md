@@ -103,7 +103,7 @@ For B3 on a nylon-string guitar (`f₁ = 246.94 Hz`, 18 harmonics tracked), ampl
 
 ## Limitations
 
-- Hand-off between `cleanup.py` and `synthesize.py` is manual — fitting `A·exp(-k·t)` to each harmonic was done in Desmos for the original report. Automating with `scipy.optimize.curve_fit` would be a natural extension.
+- Hand-off between `cleanup.py` and `synthesize.py` is manual, fitting `A·exp(-k·t)` to each harmonic was done by hand in Desmos for the original report. Automating with `scipy.optimize.curve_fit` would be a natural extension.
 - The model is decaying-sinusoid-only: no body resonance, no inharmonicity, no slight detuning between harmonics. Works well for guitar/piano; would fail for inharmonic instruments like kalimbas or bells.
 - Phase is fixed at zero. Audible only on careful comparison — see the report's *Phase Considerations* section for the rationale.
 
